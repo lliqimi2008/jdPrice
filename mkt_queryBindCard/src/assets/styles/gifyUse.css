@@ -1,0 +1,27 @@
+.paymentScene{ width: 100%;  margin: 0 auto; height: auto; max-width: 768px;}
+.pingFangMed {font-family: 'PingFangMedium';}
+.pingFangSem {font-family: 'PingFangSemibold';}
+.imgtitle{ position: relative; height: auto; width: 100%;}
+.imgtitle img{ display: block;}
+.imgBottomds{ position: absolute; bottom: -19%; width: 91.4%; left: 4.3%;}
+.imgbotmUl{ width: 100%; height: 100%; position: absolute; top: 0; left: 0; display: flex;}
+.imgbotmUl li {flex: 1; overflow: hidden;}
+.imgbotmUl li img { display: block; margin: 25% auto 0;}
+.firstPsty{ line-height: 24.5px; font-size: 16px; color: #C53B32; padding-top: 6px; text-align: center;}
+.secondPsty{font-size: 12px; line-height: 16.5px; color: #C53B32; text-align: center; padding: 2px 0;}
+.secondBody{ width: 100%; margin-top: 20%; height: auto;}
+.secondBody h2{ background: url(../images/Group9.png) center center no-repeat; background-size:117.5px 15px; text-align: center; font-size: 17px; line-height: 24px; color: #B67941;}
+.secondBody p{line-height: 15px; font-size: 11px; color: #E1A86C; text-align: center; padding-top: 5px;}
+.bankAll{ margin:8px 0 65px; width:100%; height: auto;}
+.bankAll ul { height: auto; width: 100%; margin: 0 auto;}
+.bankAll ul li.listy{ float: left; width: 33.33%;}
+.listy img{display: block; margin: 20px auto 10px;}
+.bankHome{ text-align: center; color: #5D5D5D; font-size: 12px; line-height: 16.5px; height: 16.5px; overflow: hidden; text-overflow: ellipsis;white-space:nowrap;}
+.bankYh{font-size: 11px; line-height: 15px; height: 15px; margin-top: 5px; text-align: center; color: #E1A86C;overflow: hidden; text-overflow: ellipsis;white-space:nowrap;}
+.gohomes{ width: 98%; left: 1%; height: 55px; position:fixed; bottom: 0; background: url(../images/Rectangle3.png) 0 0 no-repeat; background-size:100% 100%; margin: 0 auto 0px;}
+.gohomes a{ display: block; outline: none; list-style: none; line-height: 55px; padding-top: 5px; color: #fff; font-size: 17px; text-align: center;}
+.centerOne{ position: absolute; top: -10px; left: 50px;}
+.centerTwo {position: absolute; top: 28px; right: -10px;}
+.centerOne img,.centerTwo img{ width: 20px; height: 20px;}
+.logoBak{ position: absolute; top: 16px; left: 12px;}
+.logoBak img{ width: 175px; height: 23px;}

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh">
+ <head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta http-equiv="pragma" content="no-cache">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="京东支付券 任性抢">
+  <meta charset="utf-8">
+  <title>页面领奖</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="css/font.css" />
+  <link rel="stylesheet" type="text/css" href="css/gifyUse.css" />
+  <link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+  <script src="https://m.jr.jd.com/crayfish/zui/unionlog/1.0.0/unionlog.js" crossorigin></script>
+  <script src="https://jdjrflow.jd.com/wl.dev.js" crossorigin></script>
+  <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+ </head>
+
+ <body>
+  <div class="bak_styOne pv" id="app" v-show="activityTElse">
+  	<div style="display: none;"><img :src="actityData.extensionMap.TP_WECHAT_THUMB" width="300" height="300"/></div>
+  	<!--失败页面--->
+  	<div class="pv baksturio" v-show="!activityTf">
+      <div class="pa">
+        <img :src="actityData.extensionMap.TP_APP_ERR_PAGE_BG_IMG_LINK" width="100%"/>
+      </div>
+  	  <div class="errImport">
+        <div>
+          <p>{{errImport.preferVouchers}}</p>
+          <p>{{errImport.preferImport}}</p>
+        </div>
+        <div>
+          <a class="pv" :href="actityData.extensionMap.TP_APP_ERR_PAGE_BTN_REDIRECT_LINK" target="_blank" clstag="jr|keycount|mkt_takeprize|failbutton">{{actityData.extensionMap.TP_APP_ERR_PAGE_BTN_DESC}}</a>
+        </div>
+      </div>
+  	</div>
+  	<!---成功页面-->
+  	<div class="pv baksturio" v-show="activityTf">
+  	  <div class="pa">
+        <img :src="actityData.extensionMap.TP_APP_SUC_PAGE_BG_IMG_LINK" width="100%"/>
+      </div>
+      <div class="sucessImport">
+        <div>
+          <p class="title_sucess"><span>恭喜</span>您获得</p>
+          <div class="redPackage" v-show="sw_flag&&banners.length">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div id="swiper" class="swiper-slide" v-for="(v,i) in actityData.prizeinfoList" :key="i">
+                  <div class="redPackageDivli">
+                    <div>
+                      <p class="pMoney"><i>¥</i>{{v.prizeAmount}}</p>
+                      <p class="importText">{{v.prizeName}}</p>
+                    </div>
+                    <div>
+                      <p class="instrution">{{v.platformLimitDesc}}</p>
+                      <p class="instTime">{{v.beginDate | formatDate}}-{{v.endDate | formatDate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="divLastChild pv">
+          <a :href="actityData.extensionMap.TP_APP_SUC_PAGE_BTN_REDIRECT_LINK" target="_blank" class="sucessAgo" clstag="jr|keycount|mkt_takeprize|successbutton">{{actityData.extensionMap.TP_APP_SUC_PAGE_BTN_DESC}}</a>
+          <a v-if="actityData.extensionMap.TP_APP_SUC_PAGE_TEXT != '' ? true : false" class="toViewCoupon" target="_blank" style="text-decoration: underline;" :href="actityData.extensionMap.TP_APP_SUC_PAGE_TEXT_LINK">{{actityData.extensionMap.TP_APP_SUC_PAGE_TEXT}}</a>
+        </div>
+      </div>
+  	</div>
+    <div class="activedRules" v-if="activityTf" @click="boxShow = true">
+      <p>活动规则</p>
+    </div>
+    <div class="box animated fadeInRightBig" v-show="boxShow">
+      <div class="boxChren">
+        <h3>活动规则说明</h3>
+        <p class="pactivedTxt" v-text="actityData.extensionMap.TP_APP_RULE_DESC"></p>
+        <button class="determine" @click="boxShow = false">确定</button>
+      </div>
+    </div>
+    <div class="advertising">
+      <a :href="actityData.extensionMap.TP_APP_BANNER_IMG_REDIRECT_LINK" target="_blank" clstag="jr|keycount|mkt_takeprize|ads"><img :src="actityData.extensionMap.TP_APP_BANNER_IMG_LINK" /></a>
+    </div>
+  </div>
+ </body>
+ <script type="text/javascript">
+  function formatDate(date, fmt) {
+   if(/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+   }
+   let o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'h+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds()
+   }
+   for(let k in o) {
+    if(new RegExp(`(${k})`).test(fmt)) {
+     let str = o[k] + ''
+     fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str))
+    }
+   }
+   return fmt
+  }
+
+  function padLeftZero(str) {
+   return('00' + str).substr(str.length)
+  }
+  var vm = new Vue({
+   data: {
+       hrefUrl: 'https://m.jr.jd.com',
+       activityTf: true,
+       activityTElse: false,
+       actityData: {
+           respCode: '', // 响应码
+           respDesc: '', // 响应描述
+           activityEndDate: '', // 如果活动领奖时间不满足要求，该字段会返回活动的结束时间
+           accountName: '', // 用户信息
+           activityName: '', // 活动名称
+           extensionMap: {
+               MODULE_TYPE: '', // 模板类型
+               AT_APP_BTN_DESC: '', // 激活按钮文字描述
+               AT_APP_BTN_LINK: '', // 激活按钮链接
+               BK_APP_BTN_LINK: '', // 引导页按钮链接
+               BK_APP_BTN_DESC: '', // 引导页按钮链接
+               BK_APP_BG_IMG_LINK: '', // 引导页背景图片链接
+               TP_APP_BANNER_IMG_LINK: '', // 广告位图片链接
+               TP_APP_BANNER_IMG_REDIRECT_LINK: 'http://www.jd.com', // 广告位跳转链接
+               TP_APP_ERR_PAGE_BG_IMG_LINK: 'images/errorbak.jpg', // 失败页背景图链接
+               TP_APP_ERR_PAGE_BTN_DESC: '更多优惠券', // 失败页按钮描述
+               TP_APP_ERR_PAGE_BTN_REDIRECT_LINK: '', // 失败页按钮链接
+               TP_APP_ERR_PAGE_TEXT: '', // 失败页文字说明
+               TP_APP_RULE_DESC: '', // 活动规则
+               TP_APP_SUC_PAGE_BG_IMG_LINK: 'images/sucessbak.jpg', // 成功页背景图链接
+               TP_APP_SUC_PAGE_BTN_DESC: '立即使用', // 成功页按钮描述
+               TP_APP_SUC_PAGE_BTN_REDIRECT_LINK: '', // 成功页按钮链接
+               TP_APP_SUC_PAGE_TEXT: '', // 成功页文字说明
+               TP_APP_SUC_PAGE_TEXT_LINK: '', // 成功页面文字链接
+               TP_APP_TEMP_TITLE: '', // 页面标题
+               TP_APP_TEMP_NAME: '', // 页面名称
+               TP_WECHAT_CONTENT: '', // 微信分享文案
+               TP_WECHAT_LINK: '', // 微信分享链接
+               TP_WECHAT_THUMB: '', // 微信分享小图链接
+               TP_WECHAT_TITLE: '' // 微信分析标题
+           },
+           prizeinfoList: [{
+               prizeInstanceId: '', // 奖品实例ID
+               prizeId: '', // 奖品ID
+               prizeName: '', // 奖品名称
+               prizeType: '', // 奖品类型
+               beginDate: '', // 奖品开始时间
+               endDate: '', // 奖品结束时间
+               validDays: '', // 奖品有效天数
+               prizeAmount: '', // 奖品金额
+               prizeDesc: '', // 奖品描述
+               prizeStatus: '', // 奖品状态
+               activityId: '', // 活动ID
+               assignedAmount: '', // 订单最低多少可使用
+               subPrizeInfoDtos: '', // 大礼包下的奖品信息
+               assignedAmountTip: '', // 限制消费金额提示语
+               platformLimitDesc: ''
+           }],
+           ruleExceptions: {
+               noPassDesc: '', // 规则不通过描述
+               message: '', // 异常描述
+               errorCode: '' // 规则异常码
+           }
+       },
+       sw_flag: 0,
+       boxShow: false,
+       errImport: {
+           preferVouchers: '很遗憾，你没有领到奖',
+           preferImport: '该活动仅限京东支付新用户领取~'
+       }
+   },
+      filters: {
+          formatDate(time) {
+              var date = new Date(time)
+              return formatDate(date, 'yyyy.MM.dd')
+          }
+      },
+      methods: {
+          swiperInit() {
+              new Swiper('.swiper-container', {
+                  pagination: '.swiper-pagination',
+                  paginationType: 'bullets',
+                  speed: 400,
+                  autoplay: true,
+                  loop: true,
+                  observer: true,
+                  observeParents: false
+              })
+          }
+      }
+  }).$mount("#app")
+ </script>
+ <script>
+     var bp_appid = "pay_marketing_takeprize";
+     var bp_bizid = "pay_marketing_takeprize";
+ </script>
+ <script src="//gia.jd.com/m.html"></script>
+ <script src="//gias.jd.com/js/m.js"></script>
+ <script language="JavaScript">
+     setTimeout(function() {
+         var risk_jd;
+         try{
+             risk_jd = getJdEid();
+         }catch(e){}
+         try{
+                 var url = location.search;
+                 var theRequest = new Object();
+                 if(url.indexOf("?") != -1) {
+                     var str = url.substr(1);
+                     strs = str.split("&");
+                     for(var i = 0; i < strs.length; i++) {
+                         theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                     }
+                 }
+                 if(theRequest.activityId) {
+                     var data = theRequest.activityId
+                     $.ajax({
+                         type: "post",
+                         url: "../../activity/pageTake/takePrize",
+                         dataType: 'json',
+                         data: {
+                             "activityId": data,
+                             "eid": risk_jd.eid,
+                             "fp": risk_jd.fp,
+                             "sid": risk_jd.sid,
+                             "token":risk_jd.token
+                         },
+                         success: function(res) {
+                             vm.activityTElse = true
+                             let data = res || {}
+                             if(data.respCode === 'A00000') {
+                                 vm.actityData = data
+                                 vm.activityTf = true
+                                 if (vm.actityData.extensionMap.MODULE_TYPE === '2' && vm.actityData.prizeinfoList[0].prizeStatus === 'UA') {
+                                     vm.actityData.extensionMap.TP_APP_ERR_PAGE_BTN_REDIRECT_LINK = data.extensionMap.AT_APP_BTN_LINK
+                                     vm.actityData.extensionMap.TP_APP_ERR_PAGE_BTN_DESC = data.extensionMap.AT_APP_BTN_DESC
+                                 }
+                                 if(data) {
+                                     vm.banners = data.prizeinfoList || ''
+                                     vm.sw_flag = 1
+                                     vm.$nextTick(function() {
+                                         if(vm.banners.length > 1) {
+                                             vm.swiperInit()
+                                         }
+                                     })
+                                 }
+                             }
+                             if(data.respCode === 'A00001') {
+                                 vm.activityTf = false
+                                 vm.errImport.preferVouchers = data.respDesc
+                             }
+                             if(data.respCode === 'A00002') {
+                                 vm.activityTf = false
+                                 vm.errImport.preferVouchers = data.respDesc
+                             }
+                             if(data.respCode === 'A00003') {
+                                 vm.activityTf = false
+                                 vm.errImport.preferVouchers = data.respDesc
+                             }
+                             if(data.respCode === 'A00004') {
+                                 vm.activityTf = false
+                                 vm.errImport.preferVouchers = '获取奖项规则失败'
+                                 if (data.ruleExceptions.errorList.field === 'newBindCard') {
+                                     vm.actityData.extensionMap.TP_APP_ERR_PAGE_BTN_REDIRECT_LINK = data.extensionMap.BK_APP_BTN_LINK
+                                     vm.actityData.extensionMap.TP_APP_ERR_PAGE_BTN_DESC = data.extensionMap.BK_APP_BTN_DESC
+                                     vm.actityData.extensionMap.TP_APP_ERR_PAGE_BG_IMG_LINK = data.extensionMap.BK_APP_BG_IMG_LINK
+                                 }
+                             }
+                             if(data.respCode === 'A00005') {
+                                 vm.activityTf = false
+                                 vm.errImport.preferVouchers = '奖品已经被领走了~'
+                             }
+                             if(data.respCode === 'A00006') {
+                                 vm.activityTf = false
+                                 vm.errImport.preferVouchers = data.respDesc
+                             }
+                             if(data.respCode === 'A00007') {
+                                 let urlActivityId = window.location.href
+                                 let Urls = 'http://plogin.m.jd.com/user/login.action?appid=702&returnurl=' + urlActivityId
+                                 window.location.href = Urls
+                             }
+                             if(data.respCode === 'A00008') {
+                                 vm.activityTf = false
+                                 vm.errImport.preferVouchers = data.respDesc
+                             }
+                             if(data.respCode === 'A99999') {
+                                 vm.activityTf = false
+                             }
+                         },
+                         error: function(err) {
+                             vm.activityTf = false
+                         },
+                     });
+                 } else {
+                     vm.activityTf = false
+                     vm.activityTElse = true
+                 }
+             //你的逻辑
+         }catch(e){
+             //出现异常
+         }
+     }, 1000);
+ </script>
+ <script src="//bps.jd.com/js/ts.js"></script>
+</html>

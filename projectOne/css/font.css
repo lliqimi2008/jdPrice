@@ -1,0 +1,31 @@
+@charset 'utf-8'; 
+@font-face { 
+  font-family: 'FZQKBYSJW'; 
+  src: url('../font/FZQKBYSJW.ttf'); 
+  font-weight: normal; 
+  font-style: normal; 
+} 
+@font-face { 
+  font-family: 'errFont'; 
+  src: url('../font/errFont.ttf'); 
+  font-weight: normal; 
+  font-style: normal; 
+} 
+@font-face { 
+  font-family: 'dinBold'; 
+  src: url('../font/din-bold.otf'); 
+  font-weight: normal; 
+  font-style: normal; 
+} 
+@font-face { 
+  font-family: 'pingFang'; 
+  src: url('../font/PingFang.otf'); 
+  font-weight: normal; 
+  font-style: normal; 
+} 
+@font-face { 
+  font-family: 'PingFangSem'; 
+  src: url('../font/PingFangSemibold.otf'); 
+  font-weight: normal; 
+  font-style: normal; 
+} 

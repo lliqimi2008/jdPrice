@@ -1,0 +1,13 @@
+@charset 'utf-8';
+@font-face {
+  font-family: 'PingFangMedium';
+  src: url('../font/PingFangMedium.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PingFangSemibold';
+  src: url('../font/PingFangSCSemibold.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
